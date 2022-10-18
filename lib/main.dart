@@ -59,13 +59,15 @@ class _RandomWordsState extends State<RandomWords> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
+        // i = 0 to ∞
         itemBuilder: (context, i) {
           if (i.isOdd) return const Divider(); // divider after each element
 
-          final index = i ~/ 2; // Integer division
+          final index = i ~/ 2; // ⭐Integer division
 
           // Expand list
           if (index >= _suggestions.length) {
+            // when all words are used then generate random words and add 10 of them to the never ending suggestions list
             _suggestions.addAll(generateWordPairs().take(10));
           }
 
@@ -82,6 +84,7 @@ class _RandomWordsState extends State<RandomWords> {
               semanticLabel: alreadyLiked ? 'Remove from liked' : 'Like',
             ),
             onTap: () {
+              // build method will be called again so no need to update icons again
               setState(() {
                 if (alreadyLiked) {
                   _liked.remove(_suggestions[index]);
@@ -101,7 +104,7 @@ class _RandomWordsState extends State<RandomWords> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-          // List of liked words --> Iterable of liked words
+          // ⭐List of liked words --> Iterable of liked words as divideTiles accepts Iterable
           final tiles = _liked.map(
             (pair) {
               return ListTile(
